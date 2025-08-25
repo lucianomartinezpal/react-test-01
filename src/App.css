@@ -1,42 +1,730 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* App.css - Estilos principales del dashboard de React */
+/* Este archivo contiene todos los estilos necesarios para la interfaz */
+
+/* Reset y estilos base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  color: #333;
+}
+
+/* Contenedor principal de la aplicación */
+.app {
+  display: flex;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+/* Sidebar - Navegación lateral */
+.sidebar {
+  width: 300px;
+  background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+  color: white;
+  padding: 20px;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  position: fixed;
+  height: 100vh;
+  left: 0;
+  top: 0;
+}
+
+/* Header del sidebar */
+.sidebar-header {
   text-align: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.logo-icon {
+  font-size: 2.5rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(45deg, #3498db, #e74c3c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sidebar-subtitle {
+  color: #bdc3c7;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* Navegación del sidebar */
+.sidebar-nav {
+  margin-bottom: 30px;
+}
+
+.nav-list {
+  list-style: none;
+}
+
+.nav-item {
+  margin-bottom: 8px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  text-decoration: none;
+  color: #ecf0f1;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
+}
+
+.nav-link.active {
+  background: linear-gradient(45deg, #3498db, #2980b9);
+  color: white;
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+.nav-icon {
+  font-size: 1.5rem;
+  min-width: 30px;
+  text-align: center;
+}
+
+.nav-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-label {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.nav-description {
+  font-size: 0.8rem;
+  color: #bdc3c7;
+  margin-top: 2px;
+}
+
+.nav-link.active .nav-description {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Footer del sidebar */
+.sidebar-footer {
+  border-top: 2px solid rgba(255, 255, 255, 0.1);
+  padding-top: 20px;
+}
+
+.sidebar-footer h4 {
+  color: #3498db;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.current-route {
+  margin-bottom: 20px;
+}
+
+.route-path {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  color: #f39c12;
+}
+
+.sidebar-info p {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin-bottom: 15px;
+}
+
+.sidebar-tips ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.sidebar-tips li {
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.sidebar-tips li::before {
+  content: '💡';
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* Contenido principal */
+.main-content {
+  flex: 1;
+  margin-left: 300px;
+  padding: 30px;
+  overflow-y: auto;
+  background: white;
+  min-height: 100vh;
+}
+
+/* Estilos generales para contenedores de componentes */
+.home-container,
+.components-container,
+.hooks-container,
+.routing-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Títulos principales */
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #2c3e50;
+  text-align: center;
+  background: linear-gradient(45deg, #3498db, #e74c3c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+h2 {
+  font-size: 2rem;
+  margin: 25px 0 15px 0;
+  color: #34495e;
+  border-left: 4px solid #3498db;
+  padding-left: 15px;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin: 20px 0 12px 0;
+  color: #2c3e50;
+}
+
+h4 {
+  font-size: 1.2rem;
+  margin: 15px 0 10px 0;
+  color: #34495e;
+}
+
+/* Secciones de contenido */
+.concept-explanation,
+.demo-section,
+.hook-section,
+.navigation-section,
+.component-demo,
+.routing-demo {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 15px;
+  margin-bottom: 25px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.concept-explanation p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #495057;
+}
+
+/* Botones */
+.btn-primary,
+.btn-secondary,
+.btn-reset,
+.btn-focus,
+.btn-toggle,
+.nav-btn,
+.add-btn,
+.counter-btn,
+.reset-btn,
+.edit-btn,
+.delete-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 5px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-primary,
+.counter-btn {
+  background: linear-gradient(45deg, #3498db, #2980b9);
+  color: white;
+}
+
+.btn-primary:hover,
+.counter-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+}
+
+.btn-secondary,
+.btn-decrement {
+  background: linear-gradient(45deg, #e74c3c, #c0392b);
+  color: white;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+}
+
+.btn-reset,
+.reset-btn {
+  background: linear-gradient(45deg, #95a5a6, #7f8c8d);
+  color: white;
+}
+
+.btn-focus,
+.btn-toggle {
+  background: linear-gradient(45deg, #f39c12, #e67e22);
+  color: white;
+}
+
+.nav-btn {
+  background: linear-gradient(45deg, #9b59b6, #8e44ad);
+  color: white;
+}
+
+.add-btn {
+  background: linear-gradient(45deg, #27ae60, #229954);
+  color: white;
+}
+
+.edit-btn {
+  background: linear-gradient(45deg, #f39c12, #e67e22);
+  color: white;
+  padding: 8px 15px;
+  font-size: 0.8rem;
+}
+
+.delete-btn {
+  background: linear-gradient(45deg, #e74c3c, #c0392b);
+  color: white;
+  padding: 8px 15px;
+  font-size: 0.8rem;
+}
+
+/* Grupos de botones */
+.button-group,
+.programmatic-nav,
+.params-nav,
+.history-nav,
+.custom-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+/* Inputs */
+.text-input,
+.name-input,
+.custom-path-input {
+  padding: 12px 15px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  margin: 5px;
+  min-width: 200px;
+}
+
+.text-input:focus,
+.name-input:focus,
+.custom-path-input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+/* Formularios */
+.add-user-form {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+  border: 1px solid #dee2e6;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
+}
+
+/* Listas */
+.users-list,
+.posts-list {
+  margin-top: 20px;
+}
+
+.post-item {
+  background: white;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Tarjetas de usuario */
+.user-card {
+  background: white;
+  padding: 20px;
+  margin: 15px 0;
+  border-radius: 12px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border: 1px solid #e9ecef;
+}
+
+.user-avatar {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(45deg, #3498db, #9b59b6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.user-info {
+  flex: 1;
+}
+
+.user-info h4 {
+  margin: 0 0 5px 0;
+  color: #2c3e50;
+}
+
+.user-info p {
+  margin: 0 0 3px 0;
+  color: #7f8c8d;
+}
+
+.user-role {
+  color: #3498db !important;
+  font-weight: 600;
+}
+
+.user-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* Contador y demostraciones */
+.counter-demo {
+  text-align: center;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  margin: 15px 0;
+}
+
+.counter-demo p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin: 15px 0;
+}
+
+/* Input demo */
+.input-demo {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 15px 0;
+}
+
+.greeting {
+  font-size: 1.2rem;
+  color: #27ae60;
+  font-weight: 600;
+  margin-top: 15px;
+}
+
+/* Conceptos */
+.concepts-section,
+.component-benefits,
+.hooks-rules,
+.routing-benefits {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  margin: 25px 0;
+  border: 1px solid #e9ecef;
+}
+
+.concepts-section ul,
+.component-benefits ul,
+.hooks-rules ul,
+.routing-benefits ul {
+  padding-left: 20px;
+}
+
+.concepts-section li,
+.component-benefits li,
+.hooks-rules li,
+.routing-benefits li {
+  margin: 10px 0;
+  line-height: 1.5;
+  color: #495057;
+}
+
+/* Comparaciones */
+.hooks-comparison,
+.routing-concepts {
+  margin: 25px 0;
+}
+
+.comparison-table {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+}
+
+.comparison-row {
+  display: flex;
+}
+
+.comparison-col {
+  flex: 1;
+  padding: 20px;
+  border-right: 1px solid #e9ecef;
+}
+
+.comparison-col:last-child {
+  border-right: none;
+}
+
+.comparison-col h4 {
+  color: #3498db;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.comparison-col ul {
+  padding-left: 20px;
+}
+
+.comparison-col li {
+  margin: 8px 0;
+  color: #495057;
+}
+
+/* Grid de conceptos */
+.concept-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.concept-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e9ecef;
+  transition: transform 0.3s ease;
+}
+
+.concept-card:hover {
+  transform: translateY(-5px);
+}
+
+.concept-card h4 {
+  color: #3498db;
+  margin-bottom: 10px;
+}
+
+.concept-card p {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+/* Código */
+.code-block {
+  background: #2c3e50;
+  color: #ecf0f1;
+  padding: 20px;
+  border-radius: 10px;
+  overflow-x: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 20px 0;
+  border: 1px solid #34495e;
+}
+
+/* Navegación */
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.nav-link {
+  padding: 12px 20px;
+  background: linear-gradient(45deg, #9b59b6, #8e44ad);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.nav-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
+}
+
+/* Información de ruta */
+.current-route-info {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 15px 0;
+  border: 1px solid #e9ecef;
+}
+
+.route-details p {
+  margin: 8px 0;
+  font-family: 'Courier New', monospace;
+  background: #f8f9fa;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+}
+
+/* Visibilidad */
+.visibility-demo {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 15px 0;
+  border: 1px solid #e9ecef;
+}
+
+.visible-content {
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 15px;
+}
+
+/* Posts demo */
+.posts-demo {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 15px 0;
+  border: 1px solid #e9ecef;
+}
+
+/* 404 */
+.not-found {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6c757d;
+}
+
+.not-found h1 {
+  color: #e74c3c;
+  margin-bottom: 20px;
+}
+
+.not-found p {
+  font-size: 1.1rem;
+  margin: 10px 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    position: relative;
+    height: auto;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .main-content {
+    margin-left: 0;
+    padding: 20px;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  
+  .app {
+    flex-direction: column;
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+  
+  .form-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .user-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .comparison-row {
+    flex-direction: column;
+  }
+  
+  .concept-grid {
+    grid-template-columns: 1fr;
+  }
 }
